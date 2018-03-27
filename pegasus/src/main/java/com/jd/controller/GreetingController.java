@@ -1,10 +1,8 @@
 package com.jd.controller;
 
 import com.jd.domain.Greeting;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RequestMethod;
-import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.RestController;
+import com.jd.domain.Request;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,15 +13,18 @@ public class GreetingController {
     private static final String template = "Hello, %s!";
     private final AtomicLong counter = new AtomicLong();
 
-    @RequestMapping("/greeting")
+    @RequestMapping("/requestGet")
     public Greeting greeting(@RequestParam(value="name", defaultValue="World") String name) {
         return new Greeting(counter.incrementAndGet(),
                 String.format(template, name));
     }
+
+
     @RequestMapping(value="/greeting2")
     public String Greeting2(@RequestParam(value="name",defaultValue="meiyou") String name){
         return name;
     }
+
     @RequestMapping("/greeting3")
     public List<Greeting> greeting3(@RequestParam(value="name", defaultValue="World") String name) {
         List<Greeting> list=new ArrayList<Greeting>();
@@ -34,9 +35,10 @@ public class GreetingController {
         return list;
     }
 
-    @RequestMapping(method = {RequestMethod.POST})
-    public Greeting greeting(){
+    @RequestMapping(value="requestPost",method = {RequestMethod.POST})
+    public Greeting greeting(Request request){
 
-        return null;
+        return new Greeting(counter.incrementAndGet(),
+                String.format(template, request.getName()));
     }
 }
