@@ -1,7 +1,10 @@
 package com.jd.controller;
 
+import com.jd.domain.BaseResponse;
 import com.jd.domain.Greeting;
 import com.jd.domain.Request;
+import com.jd.domain.TaskRequest;
+import com.jd.util.ServiceAssist;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.ArrayList;
@@ -40,5 +43,12 @@ public class GreetingController {
 
         return new Greeting(counter.incrementAndGet(),
                 String.format(template, request.getName()));
+    }
+
+    @RequestMapping(value = "/job/receiveJob",method = {RequestMethod.POST})
+    public  @ResponseBody BaseResponse receiveJob(@RequestBody TaskRequest request) {
+        Greeting data = new Greeting(counter.incrementAndGet(), String.format(template, request.getCarNo()));
+        BaseResponse response = ServiceAssist.ok(BaseResponse.class,data,"1","成功");
+        return response;
     }
 }
