@@ -9,7 +9,7 @@ import org.slf4j.LoggerFactory;
 import java.lang.reflect.Constructor;
 
 /**
- * Created by tongyuehong on 2017/7/28.
+ *
  */
 public class ServiceAssist {
     private static final Logger logger = LoggerFactory.getLogger(ServiceAssist.class);
